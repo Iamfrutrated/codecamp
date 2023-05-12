@@ -1,3 +1,24 @@
+/*
+Given 2 integers N, K, output the K-th permutation of N numbers. 
+
+Input:
+
+Two integers N, K
+
+Output:
+
+One line, the k-th permutation of N numbers
+
+Sample Input
+
+5 3
+
+Sample Output
+
+1 2 4 3 5
+*/
+
+
 #include<iostream>
 #include<vector>
 
