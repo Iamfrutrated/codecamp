@@ -5,7 +5,7 @@ using namespace std;
 
 int permutation_num = 0;
 
-bool in(vector<int> line, int item) {
+bool in(const vector<int>& line, int item) {
 	for(int i = 0; i < line.size(); i ++) {
 		if(line[i] == item) {
 			return true;
@@ -24,7 +24,7 @@ void print_vec(vector<int> line) {
 
 bool reached = false;
 
-void permutation(int n, int k, vector<int> *line) {
+void permutation(int n, int k, vector<int> *line, vector<bool>* used) {
 	if(reached == true) {
 		return;
 	}
@@ -44,15 +44,16 @@ void permutation(int n, int k, vector<int> *line) {
 		return;
 	}
 
-	for(int i = 1; i <= n; i ++) {
-		if(in((*line), i) == true) {
+	for (int i = 0; i < used->size(); i++) {
+		if ((*used)[i]) {
 			continue;
 		}
-		(*line).push_back(i);
 
-		permutation(n, k, line);
-
-		(*line).pop_back();
+		(*used)[i] = true;
+		line->push_back(i+1);  // 1 based
+		permutation(n, k, line, used);
+		line->pop_back();
+		(*used)[i] = false;
 	}
 }
 
@@ -63,8 +64,10 @@ int main() {
 	cin >> n >> k;
 
 	vector<int> line;
+	vector<bool> used;
+	for (int i = 0; i < n; i++) {
+		used.push_back(false);
+	}
 
-	permutation(n, k, &line);
+	permutation(n, k, &line, &used);
 }
-
-
